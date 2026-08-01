@@ -1,80 +1,73 @@
-<div> 
-<p><a href="https://github.com/JosiTubaroski/Controllers_Services/blob/main/README.md">Home</a></p>
-</div> 
+# Controller — AutorController
 
+[← Voltar](https://github.com/JosiTubaroski/Controllers_Services/blob/main/README.md)
 
-# Agora vamos criar a nossa Controllers
+## Criando o Controller
 
-<img src="https://github.com/JosiTubaroski/Controllers_Services/blob/main/img/20250226_Criando_Controller.png"/>
+### 1. Criar a Controller
 
-### O Controler será do tipo API
+![Criando Controller](https://github.com/JosiTubaroski/Controllers_Services/blob/main/img/20250226_Criando_Controller.png)
 
-<img src="https://github.com/JosiTubaroski/Controllers_Services/blob/main/img/Controlers/02_Controler_API.png"/>
+### 2. O Controller Será do Tipo API
 
-### Criando a AutorController.cs
+![Controller do Tipo API](https://github.com/JosiTubaroski/Controllers_Services/blob/main/img/Controlers/02_Controler_API.png)
 
-<img src="https://github.com/JosiTubaroski/Controllers_Services/blob/main/img/Controlers/03_Criando_Autor_Controler.png"/>
+### 3. Criando a AutorController.cs
 
-Veja o código da AutorController.cs 👉 https://github.com/JosiTubaroski/Controllers_Services/blob/main/img/Controlers/AutorController.cs
+![Criando AutorController](https://github.com/JosiTubaroski/Controllers_Services/blob/main/img/Controlers/03_Criando_Autor_Controler.png)
 
-### Código Explicado.
+O código completo da `AutorController.cs` pode ser consultado [neste link](https://github.com/JosiTubaroski/Controllers_Services/blob/main/img/Controlers/AutorController.cs).
 
-Esse código define um <b>controller</b> para uma API no <b>ASP.NET Core,</b> resposável por gerenciar autores.
-Vamos detalhar cada parte:
+## Código Explicado
 
-### 🔹 Namespaces Importados
+Esse código define um controller para uma API no ASP.NET Core, responsável por gerenciar autores.
 
-Essas linhas trazem funcionalidades necessárias para o código:
+### Namespaces Importados
 
-<img src="https://github.com/JosiTubaroski/AutorController/blob/main/img/03_Bibliotecas.png"/>
+Essas linhas trazem as funcionalidades necessárias para o código:
 
-### 🔹 Definição do Controller
+![Bibliotecas Importadas](https://github.com/JosiTubaroski/AutorController/blob/main/img/03_Bibliotecas.png)
 
-<img src="https://github.com/JosiTubaroski/AutorController/blob/main/img/04_Definindo_API_Controller.png"/>
+### Definição do Controller
 
-- <b>[Route("api/[controller]")]</b> → Define que este controller responderá às requisições no endpoint api/Autor
-- <b>[ApiController] </b> → Indica que essa classe é um controller de API no ASP.NET Core.
-- <b> AutorController : ControllerBase </b>  → Estende a classe ControllerBase, que fornece funcionalidades básicas para um controller.
+![Definindo o API Controller](https://github.com/JosiTubaroski/AutorController/blob/main/img/04_Definindo_API_Controller.png)
 
-### 🔹 Injeção de Dependência
+- `[Route("api/[controller]")]` — define que este controller responderá às requisições no endpoint `api/Autor`.
+- `[ApiController]` — indica que essa classe é um controller de API no ASP.NET Core.
+- `AutorController : ControllerBase` — estende a classe `ControllerBase`, que fornece funcionalidades básicas para um controller.
 
-<img src="https://github.com/JosiTubaroski/AutorController/blob/main/img/06_Injecao_Dependencia.png"/>
+### Injeção de Dependência
 
-- O AutorController recebe no construtor uma instância da interface IAutorInterface, que representa um serviço de autores.
-- _autorInterface armazena essa instância para ser usada dentro do controller.
-- Esse padrão segue a <b>Injeção de Dependência</b>, permitindo maior flexibilidade e testabilidade do código.
+![Injeção de Dependência](https://github.com/JosiTubaroski/AutorController/blob/main/img/06_Injecao_Dependencia.png)
 
-### 🔹 Definição do Método GET
+- O `AutorController` recebe, no construtor, uma instância da interface `IAutorInterface`, que representa um serviço de autores.
+- `_autorInterface` armazena essa instância para ser usada dentro do controller.
+- Esse padrão segue a **Injeção de Dependência**, permitindo maior flexibilidade e testabilidade do código.
 
-<img src="https://github.com/JosiTubaroski/AutorController/blob/main/img/07_Listar_Autores.png"/>
+### Definição do Método GET
 
-- 🔹 Explicação:
+![Listar Autores](https://github.com/JosiTubaroski/AutorController/blob/main/img/07_Listar_Autores.png)
 
-  1. [HttpGet("ListarAutores")] → Indica que esse método será acessado via requisição HTTP GET no endpoint api/Autor/ListarAutores.
-  2. Task<ActionResult<ResponseModel<List<AutorModel>>>> →
-     - Task<> → O método é assíncrono (usa await).
-     - ActionResult<> → Retorna um resultado HTTP com status adequado.
-     - ResponseModel<List<AutorModel>> → Retorna uma resposta estruturada contendo uma <b>lista de autores.</b>
+**Explicação:**
 
- 3. await _autorInterface.ListarAutores(); → Chama o serviço que busca a lista de autores no banco de dados.
- 4. return Ok(autores); → Retorna um status 200 OK com os autores.
+1. `[HttpGet("ListarAutores")]` — indica que esse método será acessado via requisição HTTP GET, no endpoint `api/Autor/ListarAutores`.
+2. `Task<ActionResult<ResponseModel<List<AutorModel>>>>`:
+   - `Task<>` — o método é assíncrono (usa `await`).
+   - `ActionResult<>` — retorna um resultado HTTP com status adequado.
+   - `ResponseModel<List<AutorModel>>` — retorna uma resposta estruturada contendo uma lista de autores.
+3. `await _autorInterface.ListarAutores();` — chama o serviço que busca a lista de autores no banco de dados.
+4. `return Ok(autores);` — retorna um status `200 OK` com os autores.
 
-### 🔹 Fluxo Resumido
+### Fluxo Resumido
 
-- 1️⃣ O usuário faz uma requisição GET para api/Autor/ListarAutores.
-- 2️⃣ O método ListarAutores() chama _autorInterface.ListarAutores(), que provavelmente busca os dados no banco.
-- 3️⃣ Os dados são retornados dentro de um objeto ResponseModel.
-- 4️⃣ A API responde com 200 OK e a lista de autores.
+1. O usuário faz uma requisição GET para `api/Autor/ListarAutores`.
+2. O método `ListarAutores()` chama `_autorInterface.ListarAutores()`, que busca os dados no banco.
+3. Os dados são retornados dentro de um objeto `ResponseModel`.
+4. A API responde com `200 OK` e a lista de autores.
 
-### 🔹 Resumo Geral
+## Resumo Geral
 
-- ✅ Define um controller no ASP.NET Core para gerenciar autores.
-- ✅ Utiliza Injeção de Dependência para chamar serviços sem acoplamento direto.
-- ✅ Implementa um endpoint GET para listar autores.
-- ✅ Usa programação assíncrona (async/await) para melhor desempenho.
-
-
-
-
-
-
+- Define um controller no ASP.NET Core para gerenciar autores.
+- Utiliza Injeção de Dependência para chamar serviços sem acoplamento direto.
+- Implementa um endpoint GET para listar autores.
+- Usa programação assíncrona (`async`/`await`) para melhor desempenho.
